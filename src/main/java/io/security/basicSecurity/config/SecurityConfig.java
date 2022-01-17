@@ -33,10 +33,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsService userDetailsService;
-
+/*
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //사용자의 생성하고, 권한을 줄수 있게 도와주는 메소드
+        */
+/*
         auth.inMemoryAuthentication()
                 .withUser("user")
                 .password("{noop}1111") //password같은 경우 앞에 Prefix를 붙혀준다(어떤 알고리즘 기법을 사용했는지 적는다)
@@ -49,8 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin")
                 .password("{noop}1111")
                 .roles("ADMIN", "SYS", "USER"); //별도로 명시적으로 권한을 다 적어주어야한다.(그래야 USER, SYS 권한에도 접근이 가능)
+        *//*
 
     }
+*/
+
 
 
     @Override
@@ -210,6 +215,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .httpBasic();
          */
+        /*
         http
                 .authorizeRequests()
                 .anyRequest().authenticated();
@@ -218,7 +224,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin();
         //시큐리티 컨택스트 모드 변경
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
-        
+         */
+        http
+                .authorizeRequests()
+                .antMatchers("/user").hasRole("USER")
+                .anyRequest().permitAll()
+                ;
+        http
+                .formLogin();
    }
 }
 /*
